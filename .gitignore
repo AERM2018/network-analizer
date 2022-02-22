@@ -1,0 +1,8 @@
+# Python cache log
+__pycache__/
+
+# Log files
+logs/*.txt
+
+# Environment variables
+.env
