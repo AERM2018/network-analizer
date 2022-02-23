@@ -1,6 +1,3 @@
-from inspect import trace
-import subprocess
-import paramiko
 import os
 from helpers import exec_command
 from helpers.ssh import get_SSH_client
@@ -31,7 +28,9 @@ class Command_executer():
         ssh.close() 
 
     def arp(self):
-        arp_result = subprocess.run(['arp', '-a'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         log_file = open('./logs/arp_log.txt','w')
-        log_file.write(arp_result.stdout)
+        log_file.write(exec_command.execute(['arp','-a'],return_result=True))
         log_file.close()
+
+
+        

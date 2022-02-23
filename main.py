@@ -1,15 +1,24 @@
 import threading
-from tasks import network_commads
+from tasks import network_commads,vulnerability
 import os
 from dotenv import load_dotenv
 def main():
   load_dotenv()
-  target_ip = '192.168.0.14'
+  target_ip = os.getenv('TARGET_IP')
   net_exec = network_commads.Command_executer(target_ip)
-  target_thread_funcs = [net_exec.lsof,net_exec.tracert_ip,net_exec.ping_ip,net_exec.arp]
+  vul_exec= vulnerability.Vulnerability_executor(target_ip)
+  target_netcommnads_funcs = [net_exec.tracert_ip,net_exec.ping_ip,net_exec.arp]
+  target_vulnerability_funcs = [vul_exec.exec_ddos_attack]
 
-  for i in range(4):
-    th = threading.Thread(target=target_thread_funcs[i])
+  # Run networkin commands threads
+  # for i in range(len(target_netcommnads_funcs)):
+  #   th = threading.Thread(target=target_netcommnads_funcs[i])
+  #   th.start()
+  #   th.join()
+
+  # Run vulnerability funcs
+  for func in target_vulnerability_funcs:
+    th = threading.Thread(target=func)
     th.start()
     th.join()
 
