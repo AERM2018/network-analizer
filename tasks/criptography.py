@@ -1,4 +1,5 @@
 from ast import arg
+from random import randint
 import threading
 from helpers import http
 
@@ -6,6 +7,8 @@ from helpers import http
 class Criptography_executor():
     def __init__(self, text):
         self.text = text
+        self.letters = 'abcdefghijklmnopqrstuvwxyz'
+        self.numbers = '0123456789'
 
     def exec_cipher(self):
         shift = 3  # defining the shift count
@@ -27,3 +30,15 @@ class Criptography_executor():
                 # since character is not uppercase, leave it as it is
                 encryption += c
         print('Generated cipher: ',encryption)
+
+    def generate_key(self):
+        key = ''
+        for i in range(16):
+            if i in (4, 8, 12, 16): key += '-'
+            if randint(0,1) == 0:
+                l = list(self.letters)
+                key += l[randint(0,len(l)-1)]
+            else:
+                n = list(self.numbers)
+                key += n[randint(0,len(n)-1)]
+        print(key.upper())

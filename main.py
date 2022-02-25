@@ -10,7 +10,7 @@ def main():
   crip_exec = criptography.Criptography_executor("HOLA MUNDO")
   target_netcommnads_funcs = [net_exec.tracert_ip,net_exec.ping_ip,net_exec.arp]
   target_vulnerability_funcs = [vul_exec.exec_ddos_attack]
-  target_criptography_funcs = [crip_exec.exec_cipher]
+  target_criptography_funcs = [crip_exec.exec_cipher,crip_exec.generate_key]
 
   # Run networkin commands threads
   # for i in range(len(target_netcommnads_funcs)):
