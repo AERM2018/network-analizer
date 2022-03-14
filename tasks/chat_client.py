@@ -1,5 +1,7 @@
+from datetime import datetime
 import socket
 import sys
+from time import time
 
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -10,21 +12,21 @@ print('connecting to {} port {}'.format(*server_address))
 sock.connect(server_address)
 
 try:
-    print('Conexion establecida')
+    while True:
+
     # Send data
-    message = b'This is the message.  It will be repeated.'
-    print('sending {!r}'.format(message))
-    sock.sendall(message)
+        message = input('Type a message: ')
+        print('sending...')
+        message = message.encode('utf-8')
+        sock.sendall(message)
 
-    # Look for the response
-    amount_received = 0
-    amount_expected = len(message)
+        # Look for the response
+        amount_received = 0
+        amount_expected = 1024
 
-    while amount_received < amount_expected:
-        data = sock.recv(16)
-        amount_received += len(data)
-        print('received {!r}'.format(data))
-
-finally:
-    print('closing socket')
-    sock.close()
+        while amount_received < amount_expected:
+            data = sock.recv(1024)
+            amount_received += len(data)
+            print('{} {}'.format(datetime.now(),data.decode('utf-8')))
+except:
+    print('Socket closed')
