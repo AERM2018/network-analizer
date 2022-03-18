@@ -2,6 +2,7 @@ from ast import arg
 from random import randint
 import threading
 from helpers import http
+from cryptocode import encrypt, decrypt
 
 
 class Criptography_executor():
@@ -42,3 +43,5 @@ class Criptography_executor():
                 n = list(self.numbers)
                 key += n[randint(0,len(n)-1)]
         print(key.upper())
+
+
