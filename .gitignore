@@ -3,6 +3,7 @@ __pycache__/
 
 # Log files
 /**/*.txt
+/**/*.csv
 
 # Environment variables
 .env
