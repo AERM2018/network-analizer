@@ -2,7 +2,7 @@
 __pycache__/
 
 # Log files
-/**/*.txt
+/logs/*.txt
 /**/port_scanner_log.csv
 /**/traffic.csv
 

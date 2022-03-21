@@ -1,0 +1,7 @@
+pandas
+numpy
+matplotlib
+colorama
+hashlib
+scapy
+cryptocode
