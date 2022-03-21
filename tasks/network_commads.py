@@ -1,6 +1,8 @@
+import math
 import os
 from helpers import exec_command
 from helpers.ssh import get_SSH_client
+from tasks.pandas_analizer import Pandas_analizer
 import colorama
 class Command_executer():
     colorama.init()
@@ -8,11 +10,29 @@ class Command_executer():
         self.target_ips = target_ips
 
     def ping_ip(self):
+        n_tries = 20
         log_file = open('./logs/ping_log.txt','w')
         for target_ip in self.target_ips:
-            log_file.write(exec_command.execute(['ping',target_ip],return_result=True))
+            log_file.write(exec_command.execute(['ping',target_ip,'-n','{}'.format(n_tries)],return_result=True))
         print(colorama.Fore.LIGHTYELLOW_EX+'--> Log saved in the ping_log.txt file in logs folder <--')
         log_file.close()
+        log_file = open('./logs/ping_log.txt','r')
+        log_lines = log_file.readlines()[2:(n_tries+2)]
+        response_times = []
+        for line in log_lines:
+            if(line not in 'Tiempo de espera agotado para esta solicitud.'):
+                response_times.append(int(line.split(' ')[-2].split('=')[1][:-2]))
+        log_file.close()
+        avg = math.floor(sum(response_times)/len(response_times))
+        pd_analizer = Pandas_analizer()
+        pie_labels = 'packets with rs >= {}'.format(avg),'packets with rs < {}'.format(avg)
+        pd_analizer.plot_data_as_pie_chart(
+            data=[
+                int(len([res for res in response_times if res >= avg])*100/len(response_times)),
+                int(len([res for res in response_times if res < avg])*100/len(response_times))],
+            labels=pie_labels,
+            title='Packets response time against response time average'
+        )
 
     def tracert_ip(self):
         log_file = open('./logs/tracert_log.txt','w')

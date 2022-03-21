@@ -17,3 +17,8 @@ class Pandas_analizer():
     plt.ylabel(ylabel)
     plt.xlabel(xlabel)
     plt.show()
+
+  def plot_data_as_pie_chart(self,data,labels,title):
+    plt.pie(data,labels=labels,shadow=True,startangle=90,autopct='%1.1f%%')
+    plt.title(title)
+    plt.show()

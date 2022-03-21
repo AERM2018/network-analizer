@@ -19,12 +19,12 @@ def main():
 
   timei = time.time()
   # Run networkin commands threads
-  # for i in range(len(target_netcommnads_funcs)):
-  #   thread_name = crip_exec.generate_md5('th-commands-{}'.format(i),True)
-  #   th = threading.Thread(target=target_netcommnads_funcs[i],name=thread_name)
-  #   print(colorama.Fore.GREEN+'Thread {} is starting up.'.format(thread_name))
-  #   th.start()
-  #   th.join()
+  for i in range(len(target_netcommnads_funcs)):
+    thread_name = crip_exec.generate_md5('th-commands-{}'.format(i),True)
+    th = threading.Thread(target=target_netcommnads_funcs[i],name=thread_name)
+    print(colorama.Fore.GREEN+'Thread {} is starting up.'.format(thread_name))
+    th.start()
+    th.join()
 
   # Run vulnerability funcs
   # for i in range(len(target_vulnerability_funcs)):
@@ -46,11 +46,11 @@ def main():
   #   th.join()
 
   # Run network log reader
-  thread_name = crip_exec.generate_md5('th-logger-1',True)
-  th = threading.Thread(target=log_reader.analizer,args=['./logs/firewall_logs.csv'],name=thread_name)
-  print(colorama.Fore.GREEN+'Thread {} is starting up.'.format(thread_name))
-  th.start()
-  th.join()
+  # thread_name = crip_exec.generate_md5('th-logger-1',True)
+  # th = threading.Thread(target=log_reader.analizer,args=['./logs/firewall_logs.csv'],name=thread_name)
+  # print(colorama.Fore.GREEN+'Thread {} is starting up.'.format(thread_name))
+  # th.start()
+  # th.join()
 
   timef = time.time()
   print(colorama.Fore.WHITE+'----------------------------\n')

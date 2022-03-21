@@ -3,7 +3,8 @@ __pycache__/
 
 # Log files
 /**/*.txt
-/**/*.csv
+/**/port_scanner_log.csv
+/**/traffic.csv
 
 # Environment variables
 .env
