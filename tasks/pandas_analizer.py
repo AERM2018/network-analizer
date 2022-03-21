@@ -3,6 +3,8 @@ import numpy as np
 class Pandas_analizer():
 
   def analize_data(self,data_set,group_by,aggregation_param,take):
+    if(take==None):
+      return data_set.groupby(group_by,as_index=False)[aggregation_param].sum()
     return data_set.groupby(group_by,as_index=False)[aggregation_param].sum().head(take)
 
   def plot_data(self,data,group_by,aggregation_param,title,ylabel,xlabel):

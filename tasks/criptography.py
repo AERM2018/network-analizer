@@ -4,10 +4,12 @@ import threading
 from helpers import http
 from cryptocode import encrypt, decrypt
 import hashlib
+import colorama
 
 
 class Criptography_executor():
     def __init__(self):
+        colorama.init()
         self.letters = 'abcdefghijklmnopqrstuvwxyz'
         self.numbers = '0123456789'
 
@@ -30,7 +32,7 @@ class Criptography_executor():
             else:
                 # since character is not uppercase, leave it as it is
                 encryption += c
-        print('Generated cipher: ',encryption)
+        print(colorama.Fore.WHITE+'Generated cipher: ',encryption)
 
     def generate_key(self):
         key = ''
@@ -42,7 +44,7 @@ class Criptography_executor():
             else:
                 n = list(self.numbers)
                 key += n[randint(0,len(n)-1)]
-        print(key.upper())
+        print(colorama.Fore.WHITE+'Generated key: {}'.format(key.upper()))
 
     def generate_md5(self,text,return_value=False):
         md5 = hashlib.md5()
@@ -51,6 +53,6 @@ class Criptography_executor():
         if return_value:
             return text_digest
         else:
-            print(text,'---->',text_digest)
+            print(colorama.Fore.WHITE+text,'---->',text_digest)
 
 

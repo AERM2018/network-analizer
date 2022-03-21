@@ -1,7 +1,9 @@
 import os
 from helpers import exec_command
 from helpers.ssh import get_SSH_client
+import colorama
 class Command_executer():
+    colorama.init()
     def __init__(self,target_ips):
         self.target_ips = target_ips
 
@@ -9,12 +11,14 @@ class Command_executer():
         log_file = open('./logs/ping_log.txt','w')
         for target_ip in self.target_ips:
             log_file.write(exec_command.execute(['ping',target_ip],return_result=True))
+        print(colorama.Fore.LIGHTYELLOW_EX+'--> Log saved in the ping_log.txt file in logs folder <--')
         log_file.close()
 
     def tracert_ip(self):
         log_file = open('./logs/tracert_log.txt','w')
         for target_ip in self.target_ips:
             log_file.write(exec_command.execute(['tracert',target_ip],return_result=True))
+        print(colorama.Fore.LIGHTYELLOW_EX+'--> Log saved in the tracert_log.txt file in logs folder <--')
         log_file.close()
 
     def lsof(self):
@@ -27,12 +31,14 @@ class Command_executer():
             log_file = open('./logs/lsof_log.txt','w')
             for i in listado: 
                 log_file.write(i+"\n")
+            print(colorama.Fore.LIGHTYELLOW_EX+'--> Log saved in the lsof_log.txt file in logs folder <--')
             log_file.close()
             ssh.close() 
 
     def arp(self):
         log_file = open('./logs/arp_log.txt','w')
         log_file.write(exec_command.execute(['arp','-a'],return_result=True))
+        print(colorama.Fore.LIGHTYELLOW_EX+'--> Log saved in the arp_log.txt file in logs folder <--')
         log_file.close()
 
     def nslookup(self,):
