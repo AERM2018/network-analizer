@@ -1,6 +1,5 @@
-from ast import arg
 from random import randint
-import threading
+import base64
 from helpers import http
 from cryptocode import encrypt, decrypt
 import hashlib
@@ -53,6 +52,18 @@ class Criptography_executor():
         if return_value:
             return text_digest
         else:
-            print(colorama.Fore.WHITE+text,'---->',text_digest)
+            print(colorama.Fore.WHITE+text,'(digest) -->',text_digest)
+
+    def generate_signature(self,text,return_value=False):
+        md5 = hashlib.sha256()
+        md5.update(text.encode('utf-8'))
+        text_digest = md5.hexdigest()
+        text_digest = text_digest.encode('ascii')
+        text_digest = base64.b64encode(text_digest)
+        text_digest = text_digest.decode('utf-8')
+        if return_value:
+            return text_digest
+        else:
+            print(colorama.Fore.WHITE+text,'(signature) -->',text_digest)
 
 

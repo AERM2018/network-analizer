@@ -17,11 +17,18 @@ class Command_executer():
         print(colorama.Fore.LIGHTYELLOW_EX+'--> Log saved in the ping_log.txt file in logs folder <--')
         log_file.close()
         log_file = open('./logs/ping_log.txt','r')
-        log_lines = log_file.readlines()[2:(n_tries+2)]
+        log_lines = log_file.readlines()[2:(n_tries+1)]
         response_times = []
+        time = ''
         for line in log_lines:
             if(line not in 'Tiempo de espera agotado para esta solicitud.'):
-                response_times.append(int(line.split(' ')[-2].split('=')[1][:-2]))
+                response_line = line.split(' ')[-2]
+                if ('=' in response_line) :
+                    response_times.append(int(response_line.split('=')[1].split('m')[0]))
+                elif('<' in response_line):
+                    response_times.append(int(response_line.split('<')[1].split('m')[0]))
+
+                    
         log_file.close()
         avg = math.floor(sum(response_times)/len(response_times))
         pd_analizer = Pandas_analizer()
@@ -69,5 +76,15 @@ class Command_executer():
             log_file.write(exec_command.execute(['nslookup','-type=any',target_ip],return_result=True))
             log_file.write('----------------------\n')
         log_file.close()
+
+    def route(self):
+        log_file = open('./logs/route_table_log.txt','w')
+        for target_ip in self.target_ips:
+            log_file.write(exec_command.execute(['route','PRINT'],return_result=True))
+        print(colorama.Fore.LIGHTYELLOW_EX+'--> Log saved in the route_table_log.txt file in logs folder <--')
+        log_file.close()
+
+    def get_host_name(self):
+        return exec_command.execute('hostname',return_result=True)
 
         
